@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta
+      name="description"
+      content="Estado del tránsito en tiempo real en las principales calles, avenidas y autopistas de Santiago."
+    />
+    <title>Tránsito Santiago en vivo</title>
+
+    <!-- Leaflet desde CDN. La hoja local incluye además un respaldo de estilos esenciales. -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <span class="live-dot" aria-hidden="true"></span>
+          <div>
+            <p class="eyebrow">MONITOREO EN VIVO</p>
+            <h1>Tránsito Santiago</h1>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="update-box">
+            <span>Última actualización</span>
+            <strong id="updatedAt">Cargando…</strong>
+          </div>
+          <button id="refreshButton" class="refresh-button" type="button">
+            Actualizar
+          </button>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <aside class="sidebar">
+          <section class="summary-card">
+            <div class="summary-heading">
+              <div>
+                <p class="eyebrow">ESTADO GENERAL</p>
+                <h2 id="overallLabel">Consultando tránsito</h2>
+              </div>
+              <span id="modeBadge" class="mode-badge">CARGANDO</span>
+            </div>
+
+            <div id="demoAlert" class="demo-alert" hidden>
+              Datos simulados. No representan el tránsito real de Santiago.
+            </div>
+
+            <div class="summary-grid">
+              <article>
+                <span>Velocidad actual promedio</span>
+                <strong><b id="averageSpeed">—</b> km/h</strong>
+              </article>
+              <article>
+                <span>Fluidez promedio</span>
+                <strong><b id="averageFluidity">—</b>%</strong>
+              </article>
+              <article>
+                <span>Vías monitoreadas</span>
+                <strong id="monitoredCount">—</strong>
+              </article>
+              <article>
+                <span>Estado crítico</span>
+                <strong id="criticalCount">—</strong>
+              </article>
+            </div>
+          </section>
+
+          <section class="reading-guide" aria-label="Cómo interpretar los datos">
+            <strong>Cómo leer los datos</strong>
+            <p><b>Actual</b> es la velocidad observada. <b>Normal</b> es la velocidad estimada sin congestión. <b>Fluidez</b> compara ambas.</p>
+          </section>
+
+          <section class="roads-section">
+            <div class="section-title-row">
+              <div>
+                <p class="eyebrow">PRINCIPALES VÍAS</p>
+                <h2>Condición actual</h2>
+              </div>
+              <select id="categoryFilter" aria-label="Filtrar por tipo de vía">
+                <option value="all">Todas</option>
+                <option value="Autopista">Autopistas</option>
+                <option value="Avenida">Avenidas</option>
+                <option value="Ruta">Rutas</option>
+              </select>
+            </div>
+
+            <div id="roadList" class="road-list" aria-live="polite">
+              <div class="loading-card">Obteniendo información…</div>
+            </div>
+          </section>
+
+          <p id="dataNotice" class="data-notice"></p>
+        </aside>
+
+        <section class="map-panel" aria-label="Mapa de tránsito de Santiago">
+          <div id="map"></div>
+
+          <div class="map-title-card">
+            <strong>Mapa de Santiago</strong>
+            <span>Selecciona una vía para acercarte</span>
+          </div>
+
+          <div class="map-legend">
+            <span><i class="legend-normal"></i> Fluido</span>
+            <span><i class="legend-medium"></i> Moderado</span>
+            <span><i class="legend-high"></i> Lento</span>
+            <span><i class="legend-critical"></i> Muy lento</span>
+          </div>
+
+          <button id="locateButton" class="locate-button" type="button" title="Mostrar mi ubicación">
+            Mi ubicación
+          </button>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
