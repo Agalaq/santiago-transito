@@ -1,0 +1,12 @@
+{
+  "name": "santiago-transito-netlify",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Panel de tránsito en tiempo real para Santiago desplegable en Netlify",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
